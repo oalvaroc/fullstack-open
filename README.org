@@ -1,0 +1,6 @@
+#+title: [[https://fullstackopen.com/en][Fullstack Open 2022]]
+
+A fullstack course from University of Helsinki focusing on building Single Page
+Applications with ReactJS that use REST APIs built with Node.js. The course
+covers modern web development with [[https://reactjs.org/][ReactJS]], [[https://redux.js.org/][Redux]], [[https://nodejs.org/][Node.js]], [[https://www.mongodb.com/][MongoDB]], [[https://graphql.org/][GraphQL]] and
+[[https://www.typescriptlang.org/][TypeScript]].
