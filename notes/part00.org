@@ -1,0 +1,24 @@
+#+title: Part00
+
+* Traditional Web Development
+In traditional web applications clients make requests to a server that responds
+with an HTML document describing the page. All the application logic resides in
+the server.
+
+[[./assets/part00-traditional-web-app.png]]
+
+* AJAX
+In 2005 the term AJAX (Asynchronous JavaScript and XML) was coined to describe a
+new approach to web development in which the content of a web page is
+asynchronously fetched with JavaScript without the need to rerender the whole
+page.
+
+Despite AJAX having XML in its name, JSON ended up being a more popular format
+to exchange data between client and server.
+
+[[./assets/part00-ajax.png]]
+
+* SPA
+Single Page Application is a concept that emerged in recent years. It consists
+of fetching a single web page from the server that will be dynamically updated
+as needed by JavaScript code running in the client side.
