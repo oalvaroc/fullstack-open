@@ -1,0 +1,26 @@
+#+title: Part01
+
+* ReactJS
+[[https://reactjs.org][ReactJS]] is a JavaScript library for building user interfaces. It builds upon the
+idea of having *indenpendent, reusable components* that know how to render
+themselves and that manages their own state.
+
+Components accept arbitrary input -- =props= in React lingo -- and return React
+elements describing how it should be displayed on screen. Elements are
+immutable: they represent the UI in a certain point in time. When updating the
+UI, React is smart enough to just render what has actually changed.
+
+** JSX
+ReactJS introduces a syntax extension to JavaScript called JSX. It allow us to
+declare React Elements using a syntax that resembles HTML, but can also contain
+JS expressions.
+
+#+begin_src javascript
+const Greeting = (props) => {
+  return (
+    <div>
+      <p>Hello {props.name}</p>
+    </div>
+  );
+}
+#+end_src
