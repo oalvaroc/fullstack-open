@@ -13,15 +13,22 @@ const FeedbackSection = (props) => {
   );
 }
 
-const StatsRow = (props) => <p>{props.name} {props.value}</p>
+const StatsRow = (props) => <div>{props.name} {props.value}</div>
 
 const StatsSection = (props) => {
+  const sum = () => props.counters.good + props.counters.neutral + props.counters.bad;
+  const average = () => (props.counters.good - props.counters.bad) / sum();
+  const positive = () => 100 * props.counters.good / sum();
+
   return (
     <div>
       <h1>statistics</h1>
-      <StatsRow name="good" value={props.stats.good} />
-      <StatsRow name="neutral" value={props.stats.neutral} />
-      <StatsRow name="bad" value={props.stats.bad} />
+      <StatsRow name="good" value={props.counters.good} />
+      <StatsRow name="neutral" value={props.counters.neutral} />
+      <StatsRow name="bad" value={props.counters.bad} />
+      <StatsRow name="all" value={sum()} />
+      <StatsRow name="average" value={average()} />
+      <StatsRow name="positive" value={positive() + ' %'} />
     </div>
   );
 }
@@ -39,7 +46,7 @@ const App = () => {
     bad: clickHandler(badCounter, setBadCounter)
   };
 
-  const stats = {
+  const counters = {
     good: goodCounter,
     neutral: neutralCounter,
     bad: badCounter
@@ -48,7 +55,7 @@ const App = () => {
   return (
     <div>
       <FeedbackSection handlers={handlers} />
-      <StatsSection stats={stats} />
+      <StatsSection counters={counters} />
     </div>
   );
 }
