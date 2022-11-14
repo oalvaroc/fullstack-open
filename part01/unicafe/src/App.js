@@ -20,15 +20,26 @@ const StatsSection = (props) => {
   const average = () => (props.counters.good - props.counters.bad) / sum();
   const positive = () => 100 * props.counters.good / sum();
 
+  let body;
+  if (sum() === 0) {
+    body = <p>No feedback given</p>;
+  } else {
+    body = (
+      <>
+        <StatsRow name="good" value={props.counters.good} />
+        <StatsRow name="neutral" value={props.counters.neutral} />
+        <StatsRow name="bad" value={props.counters.bad} />
+        <StatsRow name="all" value={sum()} />
+        <StatsRow name="average" value={average()} />
+        <StatsRow name="positive" value={positive() + ' %'} />
+      </>
+    );
+  }
+
   return (
     <div>
       <h1>statistics</h1>
-      <StatsRow name="good" value={props.counters.good} />
-      <StatsRow name="neutral" value={props.counters.neutral} />
-      <StatsRow name="bad" value={props.counters.bad} />
-      <StatsRow name="all" value={sum()} />
-      <StatsRow name="average" value={average()} />
-      <StatsRow name="positive" value={positive() + ' %'} />
+      {body}
     </div>
   );
 }
