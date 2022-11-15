@@ -1,5 +1,35 @@
 import { useState } from 'react'
 
+const RandomAnecdote = (props) => {
+  const [selected, setSelected] = useState(0);
+
+  const selectRandomAnecdote = () => {
+    const random = Math.floor(Math.random() * props.anecdotes.length);
+    setSelected(random);
+  }
+
+  return (
+    <div>
+      <h1>Anecdote of the day</h1>
+      <p>{props.anecdotes[selected]} <br /> has {props.votes[selected]} votes</p>
+      <button onClick={props.voteUpdater(selected)}>vote</button>
+      <button onClick={selectRandomAnecdote}>next anecdote</button>
+    </div>
+  );
+}
+
+const PopularAnecdote = (props) => {
+  const votes = props.votes.reduce((a, b) => Math.max(a, b));
+  const index = props.votes.indexOf(votes);
+
+  return votes !== 0 && (
+    <div>
+      <h1>Anecdote with most votes</h1>
+      <p>{props.anecdotes[index]} <br /> has {votes} votes</p>
+    </div>
+  );
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -11,25 +41,21 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.'
   ]
 
-  const [selected, setSelected] = useState(0);
   const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
 
-  const randomSelect = () => {
-    const random = Math.floor(Math.random() * anecdotes.length);
-    setSelected(random);
-  }
-
-  const updateVote = () => {
+  const voteUpdater = (index) => () => {
     const copy = [...votes];
-    copy[selected] += 1;
+    copy[index] += 1;
     setVotes(copy);
   }
 
   return (
     <div>
-      <p>{anecdotes[selected]} <br /> has {votes[selected]} votes</p>
-      <button onClick={updateVote}>vote</button>
-      <button onClick={randomSelect}>next anecdote</button>
+      <RandomAnecdote
+        anecdotes={anecdotes}
+        votes={votes}
+        voteUpdater={voteUpdater} />
+      <PopularAnecdote anecdotes={anecdotes} votes={votes} />
     </div>
   )
 }
