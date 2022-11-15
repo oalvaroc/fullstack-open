@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const Button = (props) => <button onClick={props.onClick}>{props.name}</button>;
 
-const FeedbackSection = (props) => {
+const Feedback = (props) => {
   return (
     <div>
       <h1>give feedback</h1>
@@ -13,9 +13,9 @@ const FeedbackSection = (props) => {
   );
 }
 
-const StatsRow = (props) => <div>{props.name} {props.value}</div>
+const StatisticLine = (props) => <div>{props.name} {props.value}</div>
 
-const StatsSection = (props) => {
+const Statistics = (props) => {
   const sum = () => props.counters.good + props.counters.neutral + props.counters.bad;
   const average = () => (props.counters.good - props.counters.bad) / sum();
   const positive = () => 100 * props.counters.good / sum();
@@ -26,12 +26,12 @@ const StatsSection = (props) => {
   } else {
     body = (
       <>
-        <StatsRow name="good" value={props.counters.good} />
-        <StatsRow name="neutral" value={props.counters.neutral} />
-        <StatsRow name="bad" value={props.counters.bad} />
-        <StatsRow name="all" value={sum()} />
-        <StatsRow name="average" value={average()} />
-        <StatsRow name="positive" value={positive() + ' %'} />
+        <StatisticLine name="good" value={props.counters.good} />
+        <StatisticLine name="neutral" value={props.counters.neutral} />
+        <StatisticLine name="bad" value={props.counters.bad} />
+        <StatisticLine name="all" value={sum()} />
+        <StatisticLine name="average" value={average()} />
+        <StatisticLine name="positive" value={positive() + ' %'} />
       </>
     );
   }
@@ -65,8 +65,8 @@ const App = () => {
 
   return (
     <div>
-      <FeedbackSection handlers={handlers} />
-      <StatsSection counters={counters} />
+      <Feedback handlers={handlers} />
+      <Statistics counters={counters} />
     </div>
   );
 }
