@@ -13,7 +13,12 @@ const Feedback = (props) => {
   );
 }
 
-const StatisticLine = (props) => <div>{props.name} {props.value}</div>
+const StatisticLine = (props) => (
+  <tr>
+    <td>{props.name}</td>
+    <td>{props.value}</td>
+  </tr>
+)
 
 const Statistics = (props) => {
   const sum = () => props.counters.good + props.counters.neutral + props.counters.bad;
@@ -25,14 +30,16 @@ const Statistics = (props) => {
     body = <p>No feedback given</p>;
   } else {
     body = (
-      <>
-        <StatisticLine name="good" value={props.counters.good} />
-        <StatisticLine name="neutral" value={props.counters.neutral} />
-        <StatisticLine name="bad" value={props.counters.bad} />
-        <StatisticLine name="all" value={sum()} />
-        <StatisticLine name="average" value={average()} />
-        <StatisticLine name="positive" value={positive() + ' %'} />
-      </>
+      <table>
+        <tbody>
+          <StatisticLine name="good" value={props.counters.good} />
+          <StatisticLine name="neutral" value={props.counters.neutral} />
+          <StatisticLine name="bad" value={props.counters.bad} />
+          <StatisticLine name="all" value={sum()} />
+          <StatisticLine name="average" value={average()} />
+          <StatisticLine name="positive" value={positive() + ' %'} />
+        </tbody>
+      </table>
     );
   }
 
