@@ -1,0 +1,7 @@
+{
+    "name": "fullstack-open",
+    "private": true,
+    "workspaces": [
+        "./part01/*"
+    ]
+}
