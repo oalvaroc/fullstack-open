@@ -24,3 +24,13 @@ const Greeting = (props) => {
   );
 }
 #+end_src
+
+** State & Hooks
+Components often are rendered according to some internal, private state. When
+this state changes we need a way to update the UI. To solve this problem, modern
+React introduced the concept of [[https://reactjs.org/docs/hooks-intro.html][Hooks]]. They are defined as "functions that let
+you “hook into” React state and lifecycle features from function components".
+
+In React, data flow is *unidirectional*: state is owned by a specific component
+and can only flow to components "below" them in the tree. There is only a single
+"source of truth" for any changing state.
