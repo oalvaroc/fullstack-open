@@ -6,6 +6,7 @@ const App = () => {
   ]);
   const [newName, setNewName] = useState('');
   const [newPhone, setNewPhone] = useState('');
+  const [searchText, setSearchText] = useState('');
 
   const addPerson = (event) => {
     event.preventDefault();
@@ -26,23 +27,20 @@ const App = () => {
     }
   };
 
-  const handleNameChange = (event) => {
-    setNewName(event.target.value);
-  }
-
-  const handlePhoneChange = (event) => {
-    setNewPhone(event.target.value);
-  }
-
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h1>Phonebook</h1>
+      <h2>Search</h2>
+      <div>
+        Search for name containing: <input value={searchText} onChange={(e) => setSearchText(e.target.value)} />
+      </div>
+      <h2>Create</h2>
       <form onSubmit={addPerson}>
         <div>
-          Name: <input value={newName} onChange={handleNameChange} />
+          Name: <input value={newName} onChange={(e) => setNewName(e.target.value)} />
         </div>
         <div>
-          Phone: <input value={newPhone} onChange={handlePhoneChange} />
+          Phone: <input value={newPhone} onChange={(e) => setNewPhone(e.target.value)} />
         </div>
         <div>
           <button type='submit'>Add</button>
@@ -51,7 +49,9 @@ const App = () => {
 
       <h2>Numbers</h2>
       <div>
-        { persons.map((person) => <div key={person.name}>{person.name} {person.phone}</div>) }
+        { persons
+            .filter((person) => person.name.toLowerCase().includes(searchText.toLowerCase()))
+            .map((person) => <div key={person.name}>{person.name} {person.phone}</div>) }
       </div>
     </div>
   );
