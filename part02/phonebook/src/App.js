@@ -2,14 +2,23 @@ import { useState } from "react";
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { id: 1, name: 'Arto Hellas' }
+    { name: 'Arto Hellas' }
   ]);
   const [newName, setNewName] = useState('');
 
   const addPerson = (event) => {
     event.preventDefault();
-    setPersons(persons.concat({ id: persons.length + 1, name: newName }));
-    setNewName('');
+
+    if (newName === '') {
+      alert('Person name cannot be empty!');
+    }
+    else if (!persons.some((person) => person.name === newName)) {
+      setPersons(persons.concat({ name: newName }));
+      setNewName('');
+    }
+    else {
+      alert(`${newName} is already added to phonebook`);
+    }
   };
 
   const handleNameChange = (event) => {
@@ -30,7 +39,7 @@ const App = () => {
 
       <h2>Numbers</h2>
       <div>
-        { persons.map((person) => <div key={person.id}>{person.name}</div>) }
+        { persons.map((person) => <div key={person.name}>{person.name}</div>) }
       </div>
     </div>
   );
