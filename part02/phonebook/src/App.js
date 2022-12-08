@@ -1,15 +1,22 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import Form from "./Form";
 import Persons from "./Persons";
 import Search from "./Search";
 
+const BASE_URL = 'http://localhost:3001';
+
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', phone: '(19) 99999-0000' }
-  ]);
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newPhone, setNewPhone] = useState('');
   const [searchText, setSearchText] = useState('');
+
+  // fetch persons list
+  useEffect(() => {
+    axios.get(`${BASE_URL}/persons`)
+         .then((res) => setPersons(res.data))
+  }, []);
 
   const addPerson = (event) => {
     event.preventDefault();

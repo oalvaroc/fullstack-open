@@ -3,7 +3,7 @@ const Persons = (props) => {
     <div>
       { props.persons
           .filter((person) => person.name.toLowerCase().includes(props.searchText.toLowerCase()))
-          .map((person) => <div key={person.name}>{person.name} {person.phone}</div>) }
+          .map((person) => <div key={person.name}>{person.name} {person.number}</div>) }
     </div>
   );
 }
