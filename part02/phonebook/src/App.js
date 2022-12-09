@@ -1,10 +1,9 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Form from "./Form";
 import Persons from "./Persons";
 import Search from "./Search";
 
-const BASE_URL = 'http://localhost:3001';
+import personsService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -14,8 +13,9 @@ const App = () => {
 
   // fetch persons list
   useEffect(() => {
-    axios.get(`${BASE_URL}/persons`)
-         .then((res) => setPersons(res.data))
+    personsService
+      .getAll()
+      .then((res) => setPersons(res));
   }, []);
 
   const addPerson = (event) => {
@@ -29,12 +29,13 @@ const App = () => {
     }
     else if (!persons.some((person) => person.name === newName)) {
       const newPerson = { name: newName, number: newPhone };
-      axios.post(`${BASE_URL}/persons`, newPerson)
-          .then((res) => {
-            setPersons(persons.concat(res.data));
-            setNewName('');
-            setNewPhone('');
-          });
+      personsService
+        .create(newPerson)
+        .then((res) => {
+          setPersons(persons.concat(res));
+          setNewName('');
+          setNewPhone('');
+        });
     }
     else {
       alert(`${newName} is already added to phonebook`);
