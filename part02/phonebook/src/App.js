@@ -28,9 +28,13 @@ const App = () => {
       alert('Person phone cannot be empty!');
     }
     else if (!persons.some((person) => person.name === newName)) {
-      setPersons(persons.concat({ name: newName, phone: newPhone }));
-      setNewName('');
-      setNewPhone('');
+      const newPerson = { name: newName, number: newPhone };
+      axios.post(`${BASE_URL}/persons`, newPerson)
+          .then((res) => {
+            setPersons(persons.concat(res.data));
+            setNewName('');
+            setNewPhone('');
+          });
     }
     else {
       alert(`${newName} is already added to phonebook`);
