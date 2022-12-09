@@ -1,4 +1,4 @@
-const Country = (props) => {
+const CountryInfo = (props) => {
   const { country } = props;
 
   return (
@@ -20,4 +20,4 @@ const Country = (props) => {
   );
 }
 
-export default Country;
+export default CountryInfo;
