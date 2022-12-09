@@ -4,7 +4,7 @@ import axios from "axios";
 import CountryInput from './CountryInput';
 import CountryList from "./CountryList";
 
-const COUNTRIES_URL = 'https://restcountries.com/v3/all?fields=name,capital,area,languages,flags,cca3';
+const COUNTRIES_URL = 'https://restcountries.com/v3/all?fields=name,capital,area,languages,flags,cca3,latlng';
 
 const App = () => {
   const [countryInput, setCountryInput] = useState('');
