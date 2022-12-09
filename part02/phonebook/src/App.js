@@ -29,18 +29,37 @@ const App = () => {
     }
     else if (!persons.some((person) => person.name === newName)) {
       const newPerson = { name: newName, number: newPhone };
-      personsService
-        .create(newPerson)
-        .then((res) => {
-          setPersons(persons.concat(res));
-          setNewName('');
-          setNewPhone('');
-        });
+      createPerson(newPerson);
     }
     else {
-      alert(`${newName} is already added to phonebook`);
+      const shouldUpdate = window.confirm(
+        `${newName} is already added to the phonebook, replace the old number with new one?`
+      );
+      if (shouldUpdate) {
+        const oldPerson = persons.find((p) => p.name === newName);
+        const newPerson = { ...oldPerson, number: newPhone };
+        updatePerson(newPerson);
+      }
     }
   };
+
+  const createPerson = (person) => {
+    personsService
+      .create(person)
+      .then((res) => {
+        setPersons(persons.concat(res));
+        setNewName('');
+        setNewPhone('');
+      });
+  }
+
+  const updatePerson = (newPerson) => {
+    personsService
+      .update(newPerson)
+      .then((res) => {
+        setPersons(persons.map((p) => p.name === res.name ? res : p));
+      });
+  }
 
   const deletePerson = (person) => {
     const shouldDelete = window.confirm(`Delete ${person.name}?`);
