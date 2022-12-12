@@ -1,0 +1,6 @@
+.status {
+    padding: 5px 5px;
+    background-color: lightgreen;
+    border: 1px solid green;
+    border-radius: 10px;
+}

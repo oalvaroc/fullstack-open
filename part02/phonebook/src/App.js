@@ -2,14 +2,18 @@ import { useEffect, useState } from "react";
 import Form from "./Form";
 import Persons from "./Persons";
 import Search from "./Search";
+import Status from "./Status";
 
 import personsService from './services/persons'
+
+import './styles/index.css';
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newPhone, setNewPhone] = useState('');
   const [searchText, setSearchText] = useState('');
+  const [status, setStatus] = useState(null);
 
   // fetch persons list
   useEffect(() => {
@@ -29,7 +33,13 @@ const App = () => {
     }
     else if (!persons.some((person) => person.name === newName)) {
       const newPerson = { name: newName, number: newPhone };
-      createPerson(newPerson);
+      createPerson(newPerson)
+        .then(() => {
+          setStatus(`Added ${newPerson.name}`);
+          setTimeout(() => {
+            setStatus(null);
+          }, 2000);
+        });
     }
     else {
       const shouldUpdate = window.confirm(
@@ -38,13 +48,19 @@ const App = () => {
       if (shouldUpdate) {
         const oldPerson = persons.find((p) => p.name === newName);
         const newPerson = { ...oldPerson, number: newPhone };
-        updatePerson(newPerson);
+        updatePerson(newPerson)
+          .then(() => {
+            setStatus(`Updated ${newPerson.name}`);
+            setTimeout(() => {
+              setStatus(null);
+            }, 2000);
+          });
       }
     }
   };
 
   const createPerson = (person) => {
-    personsService
+    return personsService
       .create(person)
       .then((res) => {
         setPersons(persons.concat(res));
@@ -54,7 +70,7 @@ const App = () => {
   }
 
   const updatePerson = (newPerson) => {
-    personsService
+    return personsService
       .update(newPerson)
       .then((res) => {
         setPersons(persons.map((p) => p.name === res.name ? res : p));
@@ -76,6 +92,8 @@ const App = () => {
     <div>
       <h1>Phonebook</h1>
 
+      <Status msg={status} />
+
       <h2>Search</h2>
       <Search searchText={searchText} setSearchText={setSearchText} />
 
@@ -83,7 +101,7 @@ const App = () => {
       <Form onSubmit={addPerson} name={newName} setName={setNewName} phone={newPhone} setPhone={setNewPhone} />
 
       <h2>Numbers</h2>
-      <Persons persons={persons} searchText={searchText} handleDelete={deletePerson}/>
+      <Persons persons={persons} searchText={searchText} handleDelete={deletePerson} />
     </div>
   );
 }
