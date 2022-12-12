@@ -1,0 +1,22 @@
+#+title: Part02
+
+* Rendering collections
+When trying to render a list of children in React, such as an ~<ul>~ with many ~<li>~, we should always set an unique key attribute for each element. React uses this unique key in its "diffing" algorithm: the process by which the Virtual DOM is compared to the real DOM and the necessary updates are applied.
+
+* Controlled Components
+Form elements like ~<input>~ and ~<textarea>~ maintain their own state, updating it when receiving user input. In React, the pattern is to keep mutable state local to the Component and access/modify it using the return value of the ~useState()~ hook.
+
+In order to make React state the "single source of truth" we need to let React controll the form elements. We do so by setting the element's ~value~ and ~onChange~ properties.
+
+#+begin_src javascript
+const Form = () => {
+  const [value, setValue] = useState('');
+  const handleChange = (e) => setValue(e.target.value);
+  return (
+    <div>Name: <input value={value} onChange={handleChange}/></div>
+  )
+}
+#+end_src
+
+* Effect Hooks
+Often we need some "side-effects" to occur in order to render components, like fetching remote data, setting a subscription or manually change the DOM. For these operations, React offers the ~useEffect()~ hook. Basically, ~useEffect()~ tells React to run some code after rendering a component.
