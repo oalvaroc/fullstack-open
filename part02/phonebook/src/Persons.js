@@ -9,8 +9,8 @@ const Persons = (props) => {
           })
           .map((person) => {
             return (
-              <div key={person.id}>
-                {person.name} {person.number}
+              <div key={person.id} className="person">
+                {person.name}<span>{person.number}</span>
                 <button onClick={() => props.handleDelete(person)}>delete</button>
               </div>
             );

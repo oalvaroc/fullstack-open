@@ -1,6 +1,21 @@
+body {
+    font-family: sans-serif;
+}
+
 .status {
     padding: 5px 5px;
     background-color: lightgreen;
     border: 1px solid green;
     border-radius: 10px;
+}
+
+.status.error {
+    background-color: lightcoral;
+    border-color: red;
+}
+
+.person {
+    display: grid;
+    width: 50%;
+    grid-template-columns: 5fr 4fr 1fr;
 }

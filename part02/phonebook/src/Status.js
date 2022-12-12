@@ -1,14 +1,16 @@
 const Status = (props) => {
-  if (props.msg) {
-    return (
-      <div className="status">
-        {props.msg}
-      </div>
-    );
-  }
-  else {
+  if (!props.status) {
     return null;
   }
+
+  const isError = props.status.isError;
+
+  return (
+    <div className={`status ${isError ? 'error' : ''}`}>
+      {props.status.msg}
+    </div>
+  );
+
 }
 
 export default Status;

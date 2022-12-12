@@ -22,6 +22,13 @@ const App = () => {
       .then((res) => setPersons(res));
   }, []);
 
+  const displayMsg = (msg, isError = false) => {
+    setStatus({ msg, isError });
+    setTimeout(() => {
+      setStatus(null);
+    }, 3000);
+  }
+
   const addPerson = (event) => {
     event.preventDefault();
 
@@ -33,13 +40,7 @@ const App = () => {
     }
     else if (!persons.some((person) => person.name === newName)) {
       const newPerson = { name: newName, number: newPhone };
-      createPerson(newPerson)
-        .then(() => {
-          setStatus(`Added ${newPerson.name}`);
-          setTimeout(() => {
-            setStatus(null);
-          }, 2000);
-        });
+      createPerson(newPerson);
     }
     else {
       const shouldUpdate = window.confirm(
@@ -48,24 +49,19 @@ const App = () => {
       if (shouldUpdate) {
         const oldPerson = persons.find((p) => p.name === newName);
         const newPerson = { ...oldPerson, number: newPhone };
-        updatePerson(newPerson)
-          .then(() => {
-            setStatus(`Updated ${newPerson.name}`);
-            setTimeout(() => {
-              setStatus(null);
-            }, 2000);
-          });
+        updatePerson(newPerson);
       }
     }
   };
 
   const createPerson = (person) => {
-    return personsService
+    personsService
       .create(person)
       .then((res) => {
         setPersons(persons.concat(res));
         setNewName('');
         setNewPhone('');
+        displayMsg(`Added ${person.name}`);
       });
   }
 
@@ -74,16 +70,21 @@ const App = () => {
       .update(newPerson)
       .then((res) => {
         setPersons(persons.map((p) => p.name === res.name ? res : p));
+        displayMsg(`Updated ${newPerson.name}`);
       });
   }
 
   const deletePerson = (person) => {
     const shouldDelete = window.confirm(`Delete ${person.name}?`);
     if (shouldDelete) {
-      personsService
+      return personsService
         .remove(person.id)
-        .then((res) => {
+        .then(() => {
           setPersons(persons.filter((p) => p.id !== person.id));
+          displayMsg(`Deleted ${person.name}`);
+        })
+        .catch(() => {
+          displayMsg(`${person.name} already deleted`, true);
         });
     }
   }
@@ -92,7 +93,7 @@ const App = () => {
     <div>
       <h1>Phonebook</h1>
 
-      <Status msg={status} />
+      <Status status={status} />
 
       <h2>Search</h2>
       <Search searchText={searchText} setSearchText={setSearchText} />
