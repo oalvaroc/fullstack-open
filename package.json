@@ -3,6 +3,7 @@
     "private": true,
     "workspaces": [
         "./part01/*",
-        "./part02/*"
+        "./part02/*",
+        "./part03/*"
     ]
 }
