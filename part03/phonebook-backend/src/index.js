@@ -28,4 +28,9 @@ app.get('/api/persons', (req, res) => {
     res.json(persons);
 });
 
+app.get('/info', (req, res) => {
+    res.send(`<p>Phonebook has info for ${persons.length} ${persons.length > 1 ? 'people' : 'person'}</p>
+              <p>${new Date()}</p>`);
+});
+
 app.listen(3001);
