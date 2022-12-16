@@ -1,0 +1,2 @@
+* Phonebook App
+The application was deployed in [[https://railway.app/][Railway]] and can be accessed at [[https://fullstack-open-production.up.railway.app]].
