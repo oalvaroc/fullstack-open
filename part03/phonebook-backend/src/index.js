@@ -29,10 +29,13 @@ app.get('/api/persons/:id', (req, res) => {
         .then((person) => res.json(person));
 });
 
-// app.delete('/api/persons/:id', (req, res) => {
-//     persons = persons.filter((p) => p.id !== Number(req.params.id));
-//     res.status(204).end();
-// });
+app.delete('/api/persons/:id', (req, res) => {
+    PersonModel
+        .findByIdAndDelete(req.params.id)
+        .then(() => {
+            res.status(204).end();
+        });
+});
 
 app.post('/api/persons', (req, res) => {
     const body = req.body;
