@@ -29,7 +29,7 @@ if (process.argv.length >= 3) {
                 return person.save();
             })
             .then(() => {
-                console.log(`Added ${name} number ${number} to phonebook`)
+                console.log(`Added ${name} number ${number} to phonebook`);
                 mongoose.connection.close();
             })
             .catch((err) => console.log(err));

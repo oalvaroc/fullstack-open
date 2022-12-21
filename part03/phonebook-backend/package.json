@@ -7,11 +7,13 @@
     "start": "node src/index.js",
     "build:ui": "rm -fr build && cd ../../part02/phonebook && npm run build && cp -r build ../../part03/phonebook-backend",
     "dev": "nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
   },
   "author": "Álvaro Costa",
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^8.30.0",
     "nodemon": "^2.0.20"
   },
   "dependencies": {

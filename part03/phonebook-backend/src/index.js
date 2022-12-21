@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.static('build'));
 app.use(express.json());
 
-morgan.token('body', (req, res) => {
+morgan.token('body', (req) => {
     return JSON.stringify(req.body);
 });
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
@@ -48,9 +48,6 @@ app.post('/api/persons', (req, res, next) => {
     else if (!body.number) {
         res.status(400).json({ error: 'missing number' });
     }
-    // else if (persons.some((p) => p.name === body.name)) {
-    //     res.status(400).json({ error: 'name must be unique' });
-    // }
     else {
         const person = new PersonModel({
             name: body.name,
