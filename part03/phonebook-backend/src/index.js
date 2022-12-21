@@ -62,6 +62,18 @@ app.post('/api/persons', (req, res, next) => {
     }
 });
 
+app.put('/api/persons/:id', (req, res, next) => {
+    const body = req.body;
+    const person = {
+        name: body.name,
+        number: body.number
+    };
+    PersonModel
+        .findByIdAndUpdate(req.params.id, person, { new: true })
+        .then((p) => res.json(p))
+        .catch((err) => next(err));
+});
+
 app.get('/info', (req, res, next) => {
     PersonModel
         .find({})
