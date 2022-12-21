@@ -62,7 +62,10 @@ const App = () => {
         setNewName('');
         setNewPhone('');
         displayMsg(`Added ${person.name}`);
-      });
+      })
+      .catch((err) => {
+        displayMsg(err.response.data.error, true);
+      })
   }
 
   const updatePerson = (newPerson) => {
@@ -71,6 +74,9 @@ const App = () => {
       .then((res) => {
         setPersons(persons.map((p) => p.name === res.name ? res : p));
         displayMsg(`Updated ${newPerson.name}`);
+      })
+      .catch((err) => {
+        displayMsg(err.response.data.error, true);
       });
   }
 

@@ -69,7 +69,7 @@ app.put('/api/persons/:id', (req, res, next) => {
         number: body.number
     };
     PersonModel
-        .findByIdAndUpdate(req.params.id, person, { new: true })
+        .findByIdAndUpdate(req.params.id, person, { new: true, runValidators: true })
         .then((p) => res.json(p))
         .catch((err) => next(err));
 });
@@ -89,6 +89,9 @@ function errorHandler(error, req, res, next) {
 
     if (error.name === 'CastError') {
         return res.status(400).json({ error: 'malformatted id' });
+    }
+    if (error.name === 'ValidationError') {
+        return res.status(400).json({ error: error.message });
     }
 
     next(error);
